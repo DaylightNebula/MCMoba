@@ -103,7 +103,7 @@ class ClassSelectManager: Listener {
         // if clicked item is within the range, set current class
         val i = index - offset
         if (i >= 0 && i  < GameClass.classes.size) {
-            Main.gamePlayers.firstOrNull { it.player == player }?.currentClass = index
+            Main.gamePlayers.firstOrNull { it.player == player }?.currentClass = i
             player.sendMessage("${GameClass.classes[i].name} ${ChatColor.RESET}${ChatColor.GRAY}selected!")
         }
     }
