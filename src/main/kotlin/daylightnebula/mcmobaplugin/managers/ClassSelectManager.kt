@@ -6,7 +6,7 @@ import daylightnebula.mcmobaplugin.classes.GameClass
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Location
-import org.bukkit.entity.Player
+import org.bukkit.entity.*
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitTask
 import org.bukkit.scoreboard.DisplaySlot
@@ -21,6 +21,8 @@ class ClassSelectManager: Listener {
 
     lateinit var timerTask: BukkitTask
     fun start() {
+        val world = Bukkit.getWorlds()[0]
+
         // for each player
         Main.gamePlayers.forEach { player ->
             // set player items
@@ -42,8 +44,16 @@ class ClassSelectManager: Listener {
 
             // teleport players
             player.player.teleport(
-                Location(Bukkit.getWorlds()[0], 103.5, 58.0, 44.5, 90f, 0f)
+                Location(world, 103.5, 58.0, 44.5, 90f, 0f)
             )
+
+            // create doll
+            player.doll = world.spawn(Location(world, 98.5, 58.0, 44.5, -90f, 0f), ArmorStand::class.java)
+            player.doll.setAI(false)
+            player.doll.isPersistent = false
+            player.doll.setBasePlate(false)
+            player.doll.setArms(true)
+            player.doll.clearActiveItem()
 
             // make it so they cannot move since they are in a menu
             player.cancelMovement = true

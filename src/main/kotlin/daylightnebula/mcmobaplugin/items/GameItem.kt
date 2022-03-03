@@ -4,7 +4,7 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
-abstract class GameItem(val id: Int, val type: GameItemType, val name: String, val desc: String, val displayStack: ItemStack) {
+abstract class GameItem(val id: Int, val type: GameItemType, val name: String, val desc: String, val displayStacks: Array<ItemStack>) {
 
     companion object {
         // lists
@@ -45,7 +45,7 @@ enum class GameItemType {
 class ShortBowGameItem(id: Int): GameItem(
     id, GameItemType.PRIMARY,
     "${ChatColor.GOLD}Short Bow", "A ranged weapon designed to be quick and effective.",
-    ItemStack(Material.BOW)
+    arrayOf(ItemStack(Material.BOW))
 ) {
     override fun select() {
         TODO("Not yet implemented")
@@ -66,7 +66,7 @@ class ShortBowGameItem(id: Int): GameItem(
 class KnifeGameItem(id: Int): GameItem(
     id, GameItemType.SECOND,
     "${ChatColor.GRAY}Knife", "A good sidearm meant to be quick and effective",
-    ItemStack(Material.FEATHER)
+    arrayOf(ItemStack(Material.FEATHER))
 ) {
     override fun select() {
         TODO("Not yet implemented")
@@ -87,7 +87,7 @@ class KnifeGameItem(id: Int): GameItem(
 class LightArmorGameItem(id: Int): GameItem(
     id, GameItemType.ARMOR,
     "${ChatColor.BLUE}Light Armor", "A light armor designed to give some protection while allowing for speed.",
-    ItemStack(Material.LEATHER_CHESTPLATE)
+    arrayOf(ItemStack(Material.LEATHER_CHESTPLATE), ItemStack(Material.LEATHER_HELMET), ItemStack(Material.LEATHER_CHESTPLATE), ItemStack(Material.LEATHER_LEGGINGS), ItemStack(Material.LEATHER_BOOTS))
 ) {
     override fun select() {
         TODO("Not yet implemented")

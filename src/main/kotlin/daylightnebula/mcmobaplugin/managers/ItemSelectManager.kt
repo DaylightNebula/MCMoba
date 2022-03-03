@@ -8,6 +8,7 @@ import daylightnebula.mcmobaplugin.items.GameItem
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
+import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.scheduler.BukkitTask
 import org.bukkit.scoreboard.DisplaySlot
 import org.bukkit.util.ChatPaginator
@@ -62,7 +63,7 @@ class ItemSelectManager {
         player.player.inventory.clear()
         itemList.forEachIndexed { index, itemID ->
             val gameItem = GameItem.allItems.firstOrNull { it.id == itemID } ?: return@forEachIndexed
-            val item = gameItem.displayStack
+            val item = gameItem.displayStacks.first()
             val meta = item.itemMeta
             meta.setDisplayName(gameItem.name)
             item.itemMeta = meta
@@ -116,12 +117,23 @@ class ItemSelectManager {
         val i = index - offset
         if (i >= 0 && i  < itemList.size) {
             // save item
-            if (type == 0) gp.currentPrime = i
-            else if (type == 1) gp.currentSecond = i
-            else if (type == 2) gp.currentArmor = i
+            if (type == 0) gp.currentPrime = itemList[i]
+            else if (type == 1) gp.currentSecond = itemList[i]
+            else if (type == 2) gp.currentArmor = itemList[i]
 
             // print results
             player.sendMessage("${GameItem.allItems.firstOrNull { itemList[i] == it.id }?.name ?: return} ${ChatColor.RESET}${ChatColor.GRAY}selected!")
+
+            // update doll
+            if (type == 0) gp.doll.setItem(EquipmentSlot.HAND, GameItem.allItems.first { itemList[i] == it.id }.displayStacks.first())
+            else if (type == 1) gp.doll.setItem(EquipmentSlot.OFF_HAND, GameItem.allItems.first { itemList[i] == it.id }.displayStacks.first())
+            else if (type == 2) {
+                val stacks = GameItem.allItems.first { itemList[i] == it.id }.displayStacks
+                gp.doll.setItem(EquipmentSlot.HEAD, stacks[1])
+                gp.doll.setItem(EquipmentSlot.CHEST, stacks[2])
+                gp.doll.setItem(EquipmentSlot.LEGS, stacks[3])
+                gp.doll.setItem(EquipmentSlot.FEET, stacks[4])
+            }
 
             // proceed to next part
             if (type < 2) {
@@ -161,6 +173,9 @@ class ItemSelectManager {
             Bukkit.getOnlinePlayers().forEach {
                 gp.player.showPlayer(Main.plugin, it)
             }
+
+            // remove doll
+            gp.doll.remove()
         }
 
     }
