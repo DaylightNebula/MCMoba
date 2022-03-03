@@ -1,7 +1,5 @@
 package daylightnebula.mcmobaplugin.items
 
-import br.com.devsrsouza.kotlinbukkitapi.extensions.item.displayName
-import br.com.devsrsouza.kotlinbukkitapi.extensions.item.item
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -47,7 +45,7 @@ enum class GameItemType {
 class ShortBowGameItem(id: Int): GameItem(
     id, GameItemType.PRIMARY,
     "${ChatColor.GOLD}Short Bow", "A ranged weapon designed to be quick and effective.",
-    item(Material.BOW).displayName("${ChatColor.GOLD}Short Bow")
+    ItemStack(Material.BOW)
 ) {
     override fun select() {
         TODO("Not yet implemented")
@@ -68,7 +66,7 @@ class ShortBowGameItem(id: Int): GameItem(
 class KnifeGameItem(id: Int): GameItem(
     id, GameItemType.SECOND,
     "${ChatColor.GRAY}Knife", "A good sidearm meant to be quick and effective",
-    item(Material.FEATHER).displayName("${ChatColor.GRAY}Knife")
+    ItemStack(Material.FEATHER)
 ) {
     override fun select() {
         TODO("Not yet implemented")
@@ -89,7 +87,7 @@ class KnifeGameItem(id: Int): GameItem(
 class LightArmorGameItem(id: Int): GameItem(
     id, GameItemType.ARMOR,
     "${ChatColor.BLUE}Light Armor", "A light armor designed to give some protection while allowing for speed.",
-    item(Material.LEATHER_CHESTPLATE).displayName("${ChatColor.BLUE}Light Armor")
+    ItemStack(Material.LEATHER_CHESTPLATE)
 ) {
     override fun select() {
         TODO("Not yet implemented")

@@ -1,34 +1,39 @@
-[15:15:07] [ServerMain/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[15:15:08] [ServerMain/INFO]: Reloading ResourceManager: Default, bukkit
-[15:15:08] [Worker-Main-4/INFO]: Loaded 7 recipes
-[15:15:10] [Server thread/INFO]: Starting minecraft server version 1.18.1
-[15:15:10] [Server thread/INFO]: Loading properties
-[15:15:10] [Server thread/INFO]: This server is running Paper version git-Paper-215 (MC: 1.18.1) (Implementing API version 1.18.1-R0.1-SNAPSHOT) (Git: 7f65b0b)
-[15:15:10] [Server thread/INFO]: Using 4 threads for Netty based IO
-[15:15:10] [Server thread/INFO]: Server Ping Player Sample Count: 12
-[15:15:10] [Server thread/INFO]: Default game type: SURVIVAL
-[15:15:10] [Server thread/INFO]: Generating keypair
-[15:15:10] [Server thread/INFO]: Starting Minecraft server on *:25565
-[15:15:10] [Server thread/INFO]: Using default channel type
-[15:15:10] [Server thread/INFO]: Paper: Using Java 11 compression from Velocity.
-[15:15:10] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
-[15:15:10] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[15:15:10] [Server thread/INFO]: Preparing level "world"
-[15:15:10] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
-[15:15:11] [Server thread/INFO]: Time elapsed: 194 ms
-[15:15:11] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
-[15:15:11] [Server thread/INFO]: Time elapsed: 149 ms
-[15:15:11] [Server thread/INFO]: Running delayed init tasks
-[15:15:11] [Server thread/INFO]: Done (1.329s)! For help, type "help"
-[15:15:11] [Server thread/INFO]: Timings Reset
-[15:15:13] [Server thread/INFO]: Stopping the server
-[15:15:13] [Server thread/INFO]: Stopping server
-[15:15:13] [Server thread/INFO]: Saving players
-[15:15:13] [Server thread/INFO]: Saving worlds
-[15:15:13] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
-[15:15:14] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
-[15:15:14] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
-[15:15:14] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
-[15:15:14] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
-[15:15:14] [Server thread/INFO]: Flushing Chunk IO
-[15:15:14] [Server thread/INFO]: Closing Thread Pool
+[18:45:19] [ServerMain/INFO]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[18:45:20] [ServerMain/INFO]: Reloading ResourceManager: Default, bukkit
+[18:45:20] [Worker-Main-4/INFO]: Loaded 7 recipes
+[18:45:22] [Server thread/INFO]: Starting minecraft server version 1.18.1
+[18:45:22] [Server thread/INFO]: Loading properties
+[18:45:22] [Server thread/INFO]: This server is running Paper version git-Paper-215 (MC: 1.18.1) (Implementing API version 1.18.1-R0.1-SNAPSHOT) (Git: 7f65b0b)
+[18:45:22] [Server thread/INFO]: Server Ping Player Sample Count: 12
+[18:45:22] [Server thread/INFO]: Using 4 threads for Netty based IO
+[18:45:22] [Server thread/INFO]: Default game type: SURVIVAL
+[18:45:22] [Server thread/INFO]: Generating keypair
+[18:45:22] [Server thread/INFO]: Starting Minecraft server on *:25565
+[18:45:22] [Server thread/INFO]: Using default channel type
+[18:45:22] [Server thread/INFO]: Paper: Using Java 11 compression from Velocity.
+[18:45:22] [Server thread/INFO]: Paper: Using Java cipher from Velocity.
+[18:45:23] [Server thread/INFO]: [MCMoba_Game] Loading MCMoba_Game v0.1
+[18:45:23] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[18:45:23] [Server thread/INFO]: Preparing level "world"
+[18:45:23] [Server thread/INFO]: Preparing start region for dimension minecraft:overworld
+[18:45:23] [Server thread/INFO]: Time elapsed: 212 ms
+[18:45:23] [Server thread/INFO]: Preparing start region for dimension minecraft:the_end
+[18:45:23] [Server thread/INFO]: Time elapsed: 245 ms
+[18:45:23] [Server thread/INFO]: [MCMoba_Game] Enabling MCMoba_Game v0.1
+[18:45:23] [Server thread/INFO]: Running delayed init tasks
+[18:45:23] [Server thread/INFO]: Done (1.816s)! For help, type "help"
+[18:45:23] [Server thread/INFO]: Timings Reset
+[18:45:27] [Server thread/INFO]: Plugins (1): MCMoba_Game
+[18:47:11] [Server thread/INFO]: Unknown command. Type "/help" for help.
+[18:47:13] [Server thread/INFO]: Stopping the server
+[18:47:13] [Server thread/INFO]: Stopping server
+[18:47:13] [Server thread/INFO]: [MCMoba_Game] Disabling MCMoba_Game v0.1
+[18:47:13] [Server thread/INFO]: Saving players
+[18:47:13] [Server thread/INFO]: Saving worlds
+[18:47:13] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[18:47:13] [Server thread/INFO]: Saving chunks for level 'ServerLevel[world_the_end]'/minecraft:the_end
+[18:47:14] [Server thread/INFO]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[18:47:14] [Server thread/INFO]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[18:47:14] [Server thread/INFO]: ThreadedAnvilChunkStorage: All dimensions are saved
+[18:47:14] [Server thread/INFO]: Flushing Chunk IO
+[18:47:14] [Server thread/INFO]: Closing Thread Pool

@@ -1,11 +1,10 @@
 package daylightnebula.mcmobaplugin
 
-import br.com.devsrsouza.kotlinbukkitapi.dsl.command.simpleCommand
-import br.com.devsrsouza.kotlinbukkitapi.extensions.scheduler.scheduler
 import daylightnebula.mcmobaplugin.managers.ClassSelectManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitTask
 import java.util.concurrent.atomic.AtomicInteger
 
 class Main: JavaPlugin() {
@@ -36,20 +35,16 @@ class Main: JavaPlugin() {
         // init listeners
         Bukkit.getPluginManager().registerEvents(GameListener(), this)
 
-        // commands
-        simpleCommand("forcestart") {
-            start()
-        }
-
         // force close inventories unless they have an allowed inventory open (in theory, cancels players inventory)
-        scheduler {
+        Bukkit.getScheduler().runTaskTimer(this, Runnable {
             Bukkit.getOnlinePlayers().forEach {
                 if (!allowedInventories.contains(it.openInventory.title))
                     it.closeInventory()
             }
-        }.runTaskTimer(this,  0L, 1L)
+        }, 0L, 1L)
     }
 
+    lateinit var startTask: BukkitTask
     fun start() {
         // check should start
         if (started || starting) return
@@ -57,7 +52,7 @@ class Main: JavaPlugin() {
 
         // wait 10 seconds before start
         val i = AtomicInteger(0)
-        scheduler {
+        startTask = Bukkit.getScheduler().runTaskTimer(this, Runnable {
             val tick = i.getAndIncrement()
 
             if (tick == 200) {
@@ -68,7 +63,7 @@ class Main: JavaPlugin() {
             } else if (tick == 220) {
                 // after 1 second, change game state and stop loop
                 changeGameState(MatchState.CLASS_SELECT)
-                cancel()
+                Bukkit.getScheduler().cancelTask(startTask.taskId)
             } else if (tick % 20 == 0) {
                 // send time to start title
                 val secondsLeft = 10 - (tick / 20)
@@ -76,7 +71,7 @@ class Main: JavaPlugin() {
                     it.sendTitle(secondsLeft.toString(), "", 1, 20, 1)
                 }
             }
-        }.runTaskTimer(this, 0L, 1L)
+        }, 0L, 1L)
     }
 
     fun close() {

@@ -1,0 +1,5 @@
+name: MCMoba_Game
+main: daylightnebula.mcmobaplugin.Main
+version: 0.1
+api-version: 1.18
+depends: KotlinBukkitAPI
