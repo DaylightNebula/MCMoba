@@ -56,7 +56,7 @@ class ItemSelectManager {
 
         // send message to the player
         val str = if (type == 0) "primary weapon" else if (type == 1) "secondary item" else "armor"
-        player.player.sendMessage("Select your $str weapon!  Use the hotbar to check out your options, and click with your choice in hand to select.")
+        player.player.sendMessage("${ChatColor.GRAY}Select your $str weapon!  Use the hotbar to check out your options, and click with your choice in hand to select.")
 
         // set up hotbar
         player.player.inventory.clear()
@@ -128,6 +128,7 @@ class ItemSelectManager {
                 giveHotbar(gp, type + 1)
             } else {
                 player.sendMessage("${ChatColor.GRAY}Waiting for the all players to finish!")
+                player.inventory.clear()
             }
         }
     }

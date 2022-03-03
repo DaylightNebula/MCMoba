@@ -1,6 +1,7 @@
 package daylightnebula.mcmobaplugin
 
 import daylightnebula.mcmobaplugin.managers.ClassSelectManager
+import daylightnebula.mcmobaplugin.managers.ItemSelectManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
@@ -17,6 +18,7 @@ class Main: JavaPlugin() {
 
         // managers
         val classSelectManager = ClassSelectManager()
+        val itemSelectManager = ItemSelectManager()
 
         // management vars
         val gamePlayers = mutableListOf<GamePlayer>()
@@ -78,6 +80,7 @@ class Main: JavaPlugin() {
         // close old game state
         when (matchState) {
             MatchState.CLASS_SELECT -> classSelectManager.end()
+            MatchState.ITEM_SELECT -> itemSelectManager.end()
             else -> {
                 println("Nothing for closing state $matchState")
             }
@@ -87,6 +90,7 @@ class Main: JavaPlugin() {
         matchState = newState
         when (newState) {
             MatchState.CLASS_SELECT -> classSelectManager.start()
+            MatchState.ITEM_SELECT -> itemSelectManager.start()
             MatchState.CLOSING -> close()
             else -> {
                 println("Nothing for opening state $newState")

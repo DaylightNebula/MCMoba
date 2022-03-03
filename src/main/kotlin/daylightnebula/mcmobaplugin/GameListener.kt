@@ -39,6 +39,7 @@ class GameListener: Listener {
         // handle use item based on match state
         when (Main.matchState) {
             MatchState.CLASS_SELECT -> Main.classSelectManager.useItem(event.player, event.player.inventory.heldItemSlot)
+            MatchState.ITEM_SELECT -> Main.itemSelectManager.useItem(event.player, event.player.inventory.heldItemSlot)
         }
     }
 
@@ -47,6 +48,7 @@ class GameListener: Listener {
         // handle item change based on match state
         when (Main.matchState) {
             MatchState.CLASS_SELECT -> Main.classSelectManager.changeHotbarSlot(event.player, event.newSlot)
+            MatchState.ITEM_SELECT -> Main.itemSelectManager.changeHotbarSlot(event.player, event.newSlot)
         }
     }
 
