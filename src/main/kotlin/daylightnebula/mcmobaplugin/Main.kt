@@ -34,14 +34,6 @@ class Main: JavaPlugin() {
 
         // init listeners
         Bukkit.getPluginManager().registerEvents(GameListener(), this)
-
-        // force close inventories unless they have an allowed inventory open (in theory, cancels players inventory)
-        Bukkit.getScheduler().runTaskTimer(this, Runnable {
-            Bukkit.getOnlinePlayers().forEach {
-                if (!allowedInventories.contains(it.openInventory.title))
-                    it.closeInventory()
-            }
-        }, 0L, 1L)
     }
 
     lateinit var startTask: BukkitTask

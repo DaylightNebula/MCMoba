@@ -1,8 +1,14 @@
 package daylightnebula.mcmobaplugin
 
+import org.bukkit.ChatColor
 import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryInteractEvent
+import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.player.*
 import org.bukkit.event.weather.WeatherChangeEvent
 
@@ -19,6 +25,13 @@ class GameListener: Listener {
 
         // should game start?
         Main.plugin.start()
+
+        // clear inventories
+        event.player.inventory.clear()
+
+        // set health and hunger
+        player.health = 20.0
+        player.foodLevel = 20
     }
 
     @EventHandler
@@ -35,6 +48,28 @@ class GameListener: Listener {
         when (Main.matchState) {
             MatchState.CLASS_SELECT -> Main.classSelectManager.changeHotbarSlot(event.player, event.newSlot)
         }
+    }
+
+    @EventHandler
+    fun onInventoryClickEvent(event: InventoryClickEvent) {
+        // there are no inventories on this server!
+        if (event.whoClicked !is Player) return
+        event.whoClicked.closeInventory()
+        event.whoClicked.sendMessage("${ChatColor.RED}There are no inventories on this server!")
+    }
+
+    @EventHandler
+    fun onEntityDamage(event: EntityDamageEvent) {
+        if (event.entity is Player) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler
+    fun onPlayerMove(event: PlayerMoveEvent) {
+        // cancel if movement is cancelled
+        if (Main.gamePlayers.firstOrNull { event.player == it.player }?.cancelMovement == true)
+            event.isCancelled = true
     }
 
     @EventHandler

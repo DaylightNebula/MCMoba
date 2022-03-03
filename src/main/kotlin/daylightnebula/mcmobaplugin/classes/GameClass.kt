@@ -18,7 +18,7 @@ class GameClass(val id: Int, val name: String, val desc: String, val displayStac
         )
         val tank = GameClass(
             1,
-            "${ChatColor.GRAY}${ChatColor.BOLD}Tank",
+            "${ChatColor.AQUA}${ChatColor.BOLD}Tank",
             "A slow melee class that leverages a large amounts of armor to survive to deal large amounts of damage to its enemies.",
             ItemStack(Material.NETHERITE_CHESTPLATE),
             arrayOf(0), arrayOf(1), arrayOf(2)
