@@ -64,7 +64,7 @@ class Main: JavaPlugin() {
                 // send time to start title
                 val secondsLeft = 10 - (tick / 20)
                 Bukkit.getOnlinePlayers().forEach {
-                    it.sendTitle(secondsLeft.toString(), "", 1, 20, 1)
+                    it.sendActionBar(secondsLeft.toString())
                 }
             }
         }, 0L, 1L)
