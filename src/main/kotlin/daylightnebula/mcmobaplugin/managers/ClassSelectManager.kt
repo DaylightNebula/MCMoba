@@ -6,6 +6,9 @@ import daylightnebula.mcmobaplugin.classes.GameClass
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Location
+import org.bukkit.boss.BarColor
+import org.bukkit.boss.BarStyle
+import org.bukkit.boss.BossBar
 import org.bukkit.entity.*
 import org.bukkit.event.Listener
 import org.bukkit.scheduler.BukkitTask
@@ -16,10 +19,13 @@ import kotlin.math.abs
 
 class ClassSelectManager: Listener {
 
+
     val offset = abs((GameClass.classes.size - 9) / 2)
     var ticksLeft = 0
 
+    lateinit var bossBar: BossBar
     lateinit var timerTask: BukkitTask
+
     fun start() {
         val world = Bukkit.getWorlds()[0]
 
@@ -44,11 +50,11 @@ class ClassSelectManager: Listener {
 
             // teleport players
             player.player.teleport(
-                Location(world, 103.5, 58.0, 44.5, 90f, 0f)
+                Location(world, 37.0, 65.0, 91.0, 180f, 0f)
             )
 
             // create doll
-            player.doll = world.spawn(Location(world, 98.5, 58.0, 44.5, -90f, 0f), ArmorStand::class.java)
+            player.doll = world.spawn(Location(world, 37.0, 66.0, 88.0, 0f, 0f), ArmorStand::class.java)
             player.doll.setAI(false)
             player.doll.isPersistent = false
             player.doll.setBasePlate(false)
@@ -59,13 +65,13 @@ class ClassSelectManager: Listener {
             player.cancelMovement = true
 
             // tell them instructions
-            player.player.sendMessage(
-                "${ChatColor.GRAY}Use the hot bar to checkout your available classes.  Select one by clicking with the classes items."
-            )
+            player.player.sendActionBar("${ChatColor.GRAY}Use the hot bar to checkout your available classes.  Select one by clicking with the classes items.")
         }
-        // Model location: 98.5 58.0, 44.5, -90f, 0f
 
         // timer
+        bossBar = Bukkit.createBossBar("Select a class!", BarColor.BLUE, BarStyle.SOLID)
+        bossBar.isVisible = true
+        Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
         ticksLeft = 400
         timerTask = Bukkit.getScheduler().runTaskTimer(Main.plugin, Runnable {
             // update ticks left to create final end
@@ -75,11 +81,8 @@ class ClassSelectManager: Listener {
             if (ticksLeft < 0 || Main.gamePlayers.filter { it.currentClass == -1 }.isEmpty()) {
                 Bukkit.getScheduler().cancelTask(timerTask.taskId)
                 Main.plugin.changeGameState(MatchState.ITEM_SELECT)
-            } else if (ticksLeft % 20 == 0) {
-                Main.gamePlayers.forEach {
-                    it.player.sendActionBar("${ChatColor.WHITE}${ticksLeft / 20}")
-                }
             }
+            if (ticksLeft >= 0) bossBar.progress = ticksLeft.toDouble() / 400.0
         }, 0, 1)
     }
 
@@ -119,6 +122,8 @@ class ClassSelectManager: Listener {
     }
 
     fun end() {
+        bossBar.removeAll()
+
         // close inventories, and if a player doesn't have a class, give them a random one
         Main.gamePlayers.forEach {
             it.player.closeInventory()

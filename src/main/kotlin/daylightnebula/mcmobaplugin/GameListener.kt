@@ -21,7 +21,7 @@ class GameListener: Listener {
         player.gameMode = GameMode.ADVENTURE
 
         // create game player
-        Main.gamePlayers.add(GamePlayer(player))
+        Main.gamePlayers.add(GamePlayer(player, if (Main.gamePlayers.size % 2 == 0) Team.BLUE else Team.RED))
 
         // should game start?
         Main.plugin.start()

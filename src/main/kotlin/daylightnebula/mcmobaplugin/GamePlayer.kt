@@ -6,6 +6,7 @@ import org.bukkit.entity.Player
 
 class GamePlayer(
     val player: Player,
+    val team: Team,
     var cancelMovement: Boolean = false,
     var currentClass: Int = -1,
     var currentPrime: Int = -1,

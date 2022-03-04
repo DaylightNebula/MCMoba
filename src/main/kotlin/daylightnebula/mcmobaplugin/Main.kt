@@ -2,6 +2,7 @@ package daylightnebula.mcmobaplugin
 
 import daylightnebula.mcmobaplugin.managers.ClassSelectManager
 import daylightnebula.mcmobaplugin.managers.ItemSelectManager
+import daylightnebula.mcmobaplugin.managers.RoundManager
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.plugin.java.JavaPlugin
@@ -19,6 +20,7 @@ class Main: JavaPlugin() {
         // managers
         val classSelectManager = ClassSelectManager()
         val itemSelectManager = ItemSelectManager()
+        val roundManager = RoundManager()
 
         // management vars
         val gamePlayers = mutableListOf<GamePlayer>()
@@ -81,6 +83,7 @@ class Main: JavaPlugin() {
         when (matchState) {
             MatchState.CLASS_SELECT -> classSelectManager.end()
             MatchState.ITEM_SELECT -> itemSelectManager.end()
+            MatchState.ROUND -> roundManager.end()
             else -> {
                 println("Nothing for closing state $matchState")
             }
@@ -91,10 +94,14 @@ class Main: JavaPlugin() {
         when (newState) {
             MatchState.CLASS_SELECT -> classSelectManager.start()
             MatchState.ITEM_SELECT -> itemSelectManager.start()
+            MatchState.ROUND -> roundManager.start()
             MatchState.CLOSING -> close()
             else -> {
                 println("Nothing for opening state $newState")
             }
         }
     }
+}
+enum class Team {
+    RED, BLUE
 }

@@ -7,6 +7,9 @@ import daylightnebula.mcmobaplugin.classes.GameClass
 import daylightnebula.mcmobaplugin.items.GameItem
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
+import org.bukkit.boss.BarColor
+import org.bukkit.boss.BarStyle
+import org.bukkit.boss.BossBar
 import org.bukkit.entity.Player
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.scheduler.BukkitTask
@@ -20,6 +23,7 @@ class ItemSelectManager {
     val playerData = hashMapOf<GamePlayer, Triple<Int, Int, Array<Int>>>() // format, Key: player, Value: <Offset, Type, Item List>
 
     // timer stuffs
+    lateinit var bossBar: BossBar
     lateinit var timerTask: BukkitTask
     var ticksLeft = 0
 
@@ -31,6 +35,9 @@ class ItemSelectManager {
         }
 
         // timer
+        bossBar = Bukkit.createBossBar("Select your items!", BarColor.BLUE, BarStyle.SOLID)
+        bossBar.isVisible = true
+        Bukkit.getOnlinePlayers().forEach { bossBar.addPlayer(it) }
         ticksLeft = 800
         timerTask = Bukkit.getScheduler().runTaskTimer(Main.plugin, Runnable {
             // update ticks left to create final end
@@ -40,11 +47,8 @@ class ItemSelectManager {
             if (ticksLeft < 0 || Main.gamePlayers.filter { it.currentArmor == -1 }.isEmpty()) {
                 Bukkit.getScheduler().cancelTask(timerTask.taskId)
                 Main.plugin.changeGameState(MatchState.ROUND)
-            } else if (ticksLeft % 20 == 0) {
-                Main.gamePlayers.forEach {
-                    it.player.sendActionBar("${ChatColor.WHITE}${ticksLeft / 20}")
-                }
             }
+            if (ticksLeft >= 0) bossBar.progress = ticksLeft.toDouble() / 800.0
         }, 0, 1)
     }
 
@@ -57,7 +61,7 @@ class ItemSelectManager {
 
         // send message to the player
         val str = if (type == 0) "primary weapon" else if (type == 1) "secondary item" else "armor"
-        player.player.sendMessage("${ChatColor.GRAY}Select your $str weapon!  Use the hotbar to check out your options, and click with your choice in hand to select.")
+        player.player.sendActionBar("${ChatColor.GRAY}Select your $str weapon!  Use the hotbar to check out your options, and click with your choice in hand to select.")
 
         // set up hotbar
         player.player.inventory.clear()
@@ -146,6 +150,8 @@ class ItemSelectManager {
     }
 
     fun end() {
+        bossBar.removeAll()
+
         // make sure everyone has selected all their items
         Main.gamePlayers.forEach { gp ->
             // check items
